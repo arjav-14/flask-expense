@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="mb-0">✏️ Edit Expense</h3>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="/update/{{ expense[0] }}">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="title" class="form-label">Expense Title</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">📝</span>
+                                    <input type="text"
+                                           id="title"
+                                           name="title"
+                                           value="{{ expense[2] }}"
+                                           class="form-control"
+                                           placeholder="Enter expense title"
+                                           required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="amount" class="form-label">Amount</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">💰</span>
+                                    <input type="number"
+                                           id="amount"
+                                           name="amount"
+                                           value="{{ expense[3] }}"
+                                           class="form-control"
+                                           placeholder="Enter amount"
+                                           step="0.01"
+                                           required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="category" class="form-label">Category</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">🏷️</span>
+                                    <select name="category" id="category" class="form-control" required>
+                                        <option value="">Select Category</option>
+                                        {% for category in categories %}
+                                        <option value="{{ category[1] }}" 
+                                                {% if expense[4] == category[1] %}selected{% endif %}>
+                                            {{ category[1] }}
+                                        </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="date" class="form-label">Date</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">📅</span>
+                                    <input type="date"
+                                           id="date"
+                                           name="date"
+                                           value="{{ expense[5] }}"
+                                           class="form-control"
+                                           required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <a href="/dashboard" class="btn btn-secondary">
+                            ❌ Cancel
+                        </a>
+                        <button type="submit" class="btn btn-warning">
+                            ✅ Update Expense
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
